@@ -1,4 +1,4 @@
-dataGALP = read.csv("./data/GALP.txt", header=TRUE, sep="", dec=",")
+dataGALP = read.csv("./data/GALP.tsv", header=TRUE, sep="", dec=",")
 dataGALP = dataGALP[,5]
 dataGALP=ts(dataGALP)
 ts.plot(dataGALP, xlab="Period: 2019-2021", ylab="Price", main="Closing Values Share Prices (GALP
