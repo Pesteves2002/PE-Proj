@@ -9,6 +9,3 @@ graph2 <- ggplot(data = mortes, aes(x = date, y = new_deaths)) +
     geom_line() +
     geom_point(colour = "blue") +
     transition_reveal(along = date)
-
-
-anim_save("ps3 game sales.gif")
