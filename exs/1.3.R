@@ -4,7 +4,6 @@ head(mortdata)
 colnames(mortdata)
 # paises<-colnames(mortdata)
 
-install.packages("psych", dependencies = TRUE)
 library("psych")
 describe(mortdata)
 head(describe(mortdata))
