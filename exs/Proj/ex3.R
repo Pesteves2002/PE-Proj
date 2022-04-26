@@ -16,7 +16,4 @@ df <- data.frame("loc" = rep(c("Laranjeiro-Almada","Entrecampos"), each=8784),
                 "Valores" = m)
 
 ggplot(df, aes(x=Valores, color=loc)) + geom_histogram(bins=30,stat="count",binwidth=5,alpha=0.5, position="identity",fill="white")
-# 
-
-
 
