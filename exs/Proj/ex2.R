@@ -1,5 +1,6 @@
 library(readxl)
 library(ggplot2)
+library("scales")
 
 Values <- read_excel ("data/EsperancaVida.xlsx")
 
@@ -11,12 +12,9 @@ Anos <- Values[6:66,1]
 
 colnames(Anos)<- c("Year")
 
-
-# Anos <- rbind(Anos,Anos,Anos,Anos,Anos,Anos)
-
 BelgicaHomem <- Values[6:66, 41]
 
-colnames(BelgicaHomem)<- c("Value1")
+colnames(BelgicaHomem)<- c("Expectancy")
 
 BaixosHomem <- Values[6:66,60]
 
@@ -48,10 +46,10 @@ Total <- data.frame( Year = Anos,
                       y1 = BelgicaHomem, y2 = BelgicaMulher, y3 = BaixosHomem, y4 = BaixosMulher, y5 = EsloHomem, y6 = EsloMulher)
 
 ggplot(Total , aes(Year))+ 
-  geom_point(aes(y = Value1), color = "black") +
+  geom_point(aes(y = Expectancy), color = "black") +
   geom_point(aes(y = Value2), color = "red") +
   geom_point(aes(y = Value3), color = "green") +
   geom_point(aes(y = Value4), color = "blue") +
   geom_point(aes(y = Value5), color = "purple") +
-  geom_point(aes(y = Value6), color = "brown")
+  geom_point(aes(y = Value6), color = "brown") +
 

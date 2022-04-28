@@ -35,7 +35,7 @@ year <- rep(c("2004","2018"),3)
 rownames(ShowValues) <- c("Chipre", "Polonia", "Luxemburgo")
 
 Total <- data.frame(Year = rep(c("2004","2018"), each = 3),
-                   Country = rep(c("Chipre","Polonia", "Luxemburgo"),2),
+                   Country = rep(c("Cyprus","Poland", "Luxembourg"),2),
                    Residue= c(Chipre2004,Polonia2004,Luxemburgo2004,Chipre2018,Polonia2018,Luxemburgo2018))
 
 ggplot(Total, aes(x= Country, y =Residue, fill= Year)) + geom_bar(stat="identity", position=position_dodge())
