@@ -51,5 +51,4 @@ ggplot(Total , aes(Year))+
   geom_point(aes(y = Value3), color = "green") +
   geom_point(aes(y = Value4), color = "blue") +
   geom_point(aes(y = Value5), color = "purple") +
-  geom_point(aes(y = Value6), color = "brown") +
-
+  geom_point(aes(y = Value6), color = "brown") 
