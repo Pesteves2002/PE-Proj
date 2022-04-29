@@ -8,47 +8,43 @@ Values <- read_excel ("data/EsperancaVida.xlsx")
 
 # belgica, paises baixos, eslovaquia
 
-Anos <- Values[6:66,1]
-
-colnames(Anos)<- c("Year")
-
-BelgicaHomem <- Values[6:66, 41]
-
-colnames(BelgicaHomem)<- c("Expectancy")
-
-BaixosHomem <- Values[6:66,60]
-
-colnames(BaixosHomem)<- c("Value2")
+Anos <- Values[48:65,1]
+Anos <- lapply(Anos, as.double)
 
 
-EsloHomem <- Values[6:66,46]
+BelgicaHomem <- Values[48:65, 41]
+BelgicaHomem <- lapply(BelgicaHomem,as.double)
 
-colnames(EsloHomem)<- c("Value3")
+BaixosHomem <- Values[48:65,60]
+BaixosHomem <- lapply(BaixosHomem,as.double)
 
+EsloHomem <- Values[48:65,46]
+EsloHomem <- lapply(EsloHomem,as.double)
 
-BelgicaMulher <- Values[6:66, 75]
+BelgicaMulher <- Values[48:65, 75]
+BelgicaMulher <- lapply(BelgicaMulher,as.double)
 
-colnames(BelgicaMulher)<- c("Value4")
+BaixosMulher <- Values[48:65,94]
+BaixosMulher <- lapply(BaixosMulher,as.double)
 
-
-BaixosMulher <- Values[6:66,94]
-colnames(BaixosMulher)<- c("Value5")
-
-
-EsloMulher <- Values[6:66, 80]
-
-colnames(EsloMulher)<- c("Value6")
+EsloMulher <- Values[48:65, 80]
+EsloMulher <- lapply(EsloMulher,as.double)
 
 
 # cor = Pais, x = ano, distinguir = mulher, y = valor
 
-Total <- data.frame( Year = Anos,
-                      y1 = BelgicaHomem, y2 = BelgicaMulher, y3 = BaixosHomem, y4 = BaixosMulher, y5 = EsloHomem, y6 = EsloMulher)
+Total <- data.frame( Anos,BelgicaHomem, BelgicaMulher, BaixosHomem, BaixosMulher, EsloHomem, EsloMulher)
 
-ggplot(Total , aes(Year))+ 
+colnames(Total) <- c("Year", "Expectancy", "Belgium-F", "Netherlands-M", "Netherlands-F", "Slovakia-M", "Slovakia-F" )
+
+
+
+ggplot(Total , aes(x = Year))+ 
   geom_point(aes(y = Expectancy), color = "black") +
-  geom_point(aes(y = Value2), color = "red") +
-  geom_point(aes(y = Value3), color = "green") +
-  geom_point(aes(y = Value4), color = "blue") +
-  geom_point(aes(y = Value5), color = "purple") +
-  geom_point(aes(y = Value6), color = "brown") 
+  geom_point(aes(y = Total[,3]), color = "red") +
+  geom_point(aes(y = Total[,4]), color = "green") +
+  geom_point(aes(y = Total[,5]), color = "blue") +
+  geom_point(aes(y = Total[,6]), color = "purple") +
+  geom_point(aes(y = Total[,7]), color = "brown") 
+
+
