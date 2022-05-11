@@ -1,28 +1,25 @@
 set.seed(1207)
 
+samples <- 6230
+size <- 47
+p <- 0.89
+n <- 2
+
 media <- numeric()
 
 
-for (x in 1:6230)
+for (x in 1:samples)
 {
-  a <- rbinom(2,47,0.89)
-  valor <- (a[1] + a[2])/2
-  media <- append(media, valor)
+  dist <- rbinom(n,size,p)
+  median_value <- median(dist)
+  media <- append(media, median_value)
 }
 
-result <- 0
+result <- median(media)
 
-for (value in media)
-{
-  result <- result + value 
-}
+expected <- n * p
 
-result <- result / 6230
-
-
-expected <- 2*0.89
-
-resposta <- result - expected
+result <- abs(result - expected)
 
 # Média das médias
 # Valor esperado - E[x] = np

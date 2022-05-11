@@ -3,13 +3,12 @@ set.seed(595)
 lambda <- 1.37
 
 confidence <- 0.91
+alfa <- 1 - confidence
 
 n <- 1234 
-
+m <- 650
 
 deviation <- sqrt(1/(lambda^2))
-
-
 
 # Intervalo de confiança
 
@@ -25,17 +24,13 @@ for (i in 1:650)
   lower <- min(a)
   calc <- CIcalc(lower,upper)
   media <- media + calc
-  
 }
-
 
 
 
 CIcalc <- function(lower, upper)
 {
     return (confidence* (deviation/sqrt(n))*2 +  upper - lower)
-  
-  
 }
 
 # Média da amplitude dos intervalos de confiança
