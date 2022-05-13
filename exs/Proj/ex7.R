@@ -10,16 +10,18 @@ media <- numeric()
 
 for (x in 1:samples)
 {
-  dist <- rbinom(n,size,p)
-  median_value <- median(dist)
+  dist <- rbinom(size,n,p)
+  median_value <- mean(dist)
   media <- append(media, median_value)
 }
 
-result <- median(media)
+result <- mean(media)
 
 expected <- n * p
 
 result <- abs(result - expected)
+
+result
 
 # Média das médias
 # Valor esperado - E[x] = np
