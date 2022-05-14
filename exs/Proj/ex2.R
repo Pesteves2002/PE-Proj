@@ -4,47 +4,34 @@ library("scales")
 
 Values <- read_excel ("data/EsperancaVida.xlsx")
 
-
-
-# belgica, paises baixos, eslovaquia
-
 Anos <- Values[48:65,1]
 Anos <- lapply(Anos, as.double)
-
-
 BelgicaHomem <- Values[48:65, 41]
 BelgicaHomem <- lapply(BelgicaHomem,as.double)
-
 BaixosHomem <- Values[48:65,60]
 BaixosHomem <- lapply(BaixosHomem,as.double)
-
 EsloHomem <- Values[48:65,46]
 EsloHomem <- lapply(EsloHomem,as.double)
-
 BelgicaMulher <- Values[48:65, 75]
 BelgicaMulher <- lapply(BelgicaMulher,as.double)
-
 BaixosMulher <- Values[48:65,94]
 BaixosMulher <- lapply(BaixosMulher,as.double)
-
 EsloMulher <- Values[48:65, 80]
 EsloMulher <- lapply(EsloMulher,as.double)
 
-
-# cor = Pais, x = ano, distinguir = mulher, y = valor
-
 Total <- data.frame( Anos,BelgicaHomem, BelgicaMulher, BaixosHomem, BaixosMulher, EsloHomem, EsloMulher)
-
-colnames(Total) <- c("Year", "Expectancy", "Belgium-F", "Netherlands-M", "Netherlands-F", "Slovakia-M", "Slovakia-F" )
-
-
+colnames(Total) <- c("Year", "Belgium_M", "Belgium_F", "Netherlands_M", "Netherlands_F", "Slovakia_M", "Slovakia_F" )
 
 ggplot(Total , aes(x = Year))+ 
-  geom_point(aes(y = Expectancy), color = "black") +
-  geom_point(aes(y = Total[,3]), color = "red") +
-  geom_point(aes(y = Total[,4]), color = "green") +
-  geom_point(aes(y = Total[,5]), color = "blue") +
-  geom_point(aes(y = Total[,6]), color = "purple") +
-  geom_point(aes(y = Total[,7]), color = "brown") 
+  geom_line(aes(y = Belgium_M, color = "Belgium Male")) +
+  geom_line(aes(y = Belgium_F, color = "Belgium Female")) +
+  geom_line(aes(y = Netherlands_M, color = "Netherlands Male")) +
+  geom_line(aes(y = Netherlands_F, color = "Netherlands Female") )+
+  geom_line(aes(y = Slovakia_M, color = "Slovakia Male")) +
+  geom_line(aes(y = Slovakia_F, color = "Slovakia Female") )+
+  scale_color_manual(name = "Countries", values = c('Belgium Male' = 'black', 'Belgium Female' = 'red',
+                                                  'Netherlands Male' ='green','Netherlands Female' = 'blue',
+                                                  'Slovakia Male' = 'purple', 'Slovakia Female'='brown')) +
+  labs(title = "Life expectancy of Belgium, Netherlands and Slovakia",x = "Year" , y = "Life Expectancy")
 
 
