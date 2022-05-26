@@ -1,21 +1,20 @@
 library(ggplot2)
-library("Rmisc")
 
-set.seed(1771)
+set.seed(1222)
 
-samples <- 950
+samples <- 1520
 
 # Choose value for n
 # n  <- 2
-#n <- 30
-n <- 84
+# n <- 30
+# n <- 84
 
-lower <- 10
-upper <- 14
+lower <- 11
+upper <- 15
 
 media <- numeric()
 
-for (m in 1:samples)
+for (x in 1:samples)
 {
   value <- runif(n,lower,upper)
   
