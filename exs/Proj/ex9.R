@@ -20,7 +20,7 @@ CIcalc <- function(vector)
 index <- numeric()
 values <- numeric()
 
-for (i in 1:150)
+for (i in 1:50)
 {
   media <- 0
   n <- i * 100
