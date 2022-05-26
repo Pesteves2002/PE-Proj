@@ -1,77 +1,63 @@
+library(ggplot2)
+library("Rmisc")
+
 set.seed(191)
 
-lambda <- 0.58
-
+lambda1 <- 0.58
+lambda2 <- 0.38
 confidence <- 0.97
-
-deviation <- sqrt(1/(lambda^2))
-
-
+m <- 900
+perc <- 0.1
 # Intervalo de confiança
-
 # CI = confidence * (standart deviation/sqrt(n))
-
-CIcalc <- function(lower, upper)
+CIcalc <- function(vector)
 {
-  return (confidence* (deviation/sqrt(n))*2 +  upper - lower)
-}
-
-CalcError <- function(els, mean)
-{
-  error <- 0
-  n <- 0
-  for (el in els)
-  {
-    error <- error + (el - mean)^2
-    n <- n +1
-  }
-  error <- sqrt(error/(n-1))
-  print(error)
-  return(error)
-  
+  len <- length(vector)
+  sd_vec <- sd(vector)
+  value <- qt((confidence + 1)/2, df = n - 1)
+  return (value * sd_vec/sqrt(len)*2)
 }
 
 index <- numeric()
-values <- numeric()
-infected <- numeric()
+values_non_infected <- numeric()
+values_infected <- numeric()
 
 
-for (i in 1:25)
-{
-  numbers <- numeric()
-  media <- 0
-  n <- i * 100
-  for (m in 1:900){
+for (n in seq(from = 100 , to = 2500, by =100))
+  {
+  num_inf = n * perc
+  ampls_infected <- 0
+  ampls_non_infected <- 0
+  for (i in 1:m) 
+  {
+    non_infected <- rexp(n,lambda1)
+    infected <- rexp(num_inf,lambda2)
+    infected <- c(infected, non_infected[(num_inf+1):n])
     
-    a<- rexp(n,0.58)
-    upper <- max(a)
-    lower <- min(a)
-    calc <- CIcalc(lower,upper)
-    error <-  CalcError(a, mean(a))
-    if (error  == 0.1) {
-      a<- rexp(n,0.38)
-      upper <- max(a)
-      lower <- min(a)
-      calc <- CIcalc(lower,upper)
-      infected <- append(infected,1)
-    }
-    else {
-      infected <- append(infected,0)
-      }
-    media <- media + calc
+    
+    CI_non_infected <- CIcalc(non_infected)
+    CI_infected <- CIcalc(infected)
+    ampls_infected <- ampls_infected + CI_infected  
+    ampls_non_infected <- ampls_non_infected + CI_non_infected
   }
-  media <- media /900
-  index <- append(index,n)
-  values <- append(values,media)
-  
-}
+    index <- append(index,n)
+    ampls_non_infected <- ampls_non_infected/m
+    ampls_infected <- ampls_infected/m
+    
+    values_non_infected <- append(values_non_infected,ampls_non_infected )
+    values_infected <- append(values_infected,ampls_infected )
 
-table <- cbind(index,values,infected)
+  }
+  
+
+table <- cbind(index,values_non_infected,values_infected)
 
 df <- data.frame(table)
 
-ggplot(df, aes(x=index, y=values, fill= infected)) +  geom_bar(stat="identity", position=position_dodge())
+ggplot(df, aes(x=index)) + 
+  geom_line(aes(y = values_non_infected, color = "Non Infected")) +
+  geom_line(aes(y = values_infected, color = "Infected")) +
+  scale_color_manual(name = "Status", values = c('Non Infected' = 'green', 'Infected' = 'red')) +
+  labs(title = "Mean value of Amplitude from n = 100 to n = 2500 of infected and non-infected",x = "Value of n" , y = "Mean value of Amplitude")
 
-
-# epsilon = sqrt(((sum (xi - m+edia)^2)/(n-1))/n)
 
