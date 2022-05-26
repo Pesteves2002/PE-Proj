@@ -1,20 +1,21 @@
 library(ggplot2)
+library("Rmisc")
 
-set.seed(1222)
+set.seed(1771)
 
-samples <- 1520
+samples <- 950
 
 # Choose value for n
 # n  <- 2
-# n <- 30
-# n <- 84
+#n <- 30
+n <- 84
 
-lower <- 11
-upper <- 15
+lower <- 10
+upper <- 14
 
 media <- numeric()
 
-for (x in 1:samples)
+for (m in 1:samples)
 {
   value <- runif(n,lower,upper)
   
@@ -31,5 +32,6 @@ df <- data.frame(media)
 
 ggplot(df, aes(x=media )) +
   geom_histogram(aes(y = ..density..),colour = "black", fill = "white") +
-   stat_function(fun = dnorm, args = list(mean = expected, sd = (sqrt(variance/n)))) +
-  labs(title="Mean value of Uniform Distribution (n=n)", x = "Value", y = "Density")
+  stat_function(fun = dnorm, args = list(mean = expected, sd = (sqrt(variance/n)))) +
+  labs(title=paste("Mean value of Uniform Distribution (n=",toString(n),")"), x = "Value", y = "Density")
+
