@@ -7,7 +7,7 @@ samples <- 1520
 # Choose value for n
 # n  <- 2
 # n <- 30
-# n <- 84
+ n <- 84
 
 lower <- 11
 upper <- 15
@@ -30,7 +30,7 @@ variance <- 1/12 * (upper - lower)^2
 df <- data.frame(media)
 
 ggplot(df, aes(x=media )) +
-  geom_histogram(aes(y = ..density..),colour = "black", fill = "white") +
+  geom_histogram(aes(y = after_stat(count / sum(count))),bins=8,colour = "black", fill = "white") +
   stat_function(fun = dnorm, args = list(mean = expected, sd = (sqrt(variance/n)))) +
   labs(title=paste("Mean value of Uniform Distribution (n=",toString(n),")"), x = "Value", y = "Density")
 
