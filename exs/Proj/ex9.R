@@ -3,6 +3,7 @@ set.seed(361)
 
 lambda <- 0.01
 confidence <- 0.98
+alfa = 1 - confidence
 a <- qnorm(1 - alfa/2)
 m <- 650
 
@@ -30,4 +31,3 @@ df <- data.frame(table)
 
 ggplot(df, aes(x=index, y=values )) +  geom_line(stat="identity", position=position_dodge(),color="blue")+
   labs(title="Mean Value of Amplitude from n = 100 to n = 5000", x= "Value of n", y = "Mean Value of Amplitude")
-

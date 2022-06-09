@@ -33,5 +33,3 @@ ggplot(Total , aes(x = Year))+
                                                   'Netherlands Male' ='green','Netherlands Female' = 'blue',
                                                   'Slovakia Male' = 'purple', 'Slovakia Female'='brown')) +
   labs(title = "Life expectancy of Belgium, Netherlands and Slovakia",x = "Year" , y = "Life Expectancy")
-
-

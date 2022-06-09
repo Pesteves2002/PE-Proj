@@ -55,5 +55,3 @@ ggplot(df, aes(x=index)) +
   geom_line(aes(y = values_contaminated, color = "Contaminated")) +
   scale_color_manual(name = "Status", values = c('Non Contaminated' = 'green', 'Contaminated' = 'red')) +
   labs(title = "Mean value of Amplitude from n = 100 to n = 2500 of Contaminated and Non-Contaminated",x = "Value of n" , y = "Mean value of Amplitude")
-
-
